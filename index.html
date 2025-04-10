@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <title>Calculator</title>
+</head>
+
+<body>
+    <nav>
+        <i class="fa-solid fa-bars"></i>
+    </nav>
+    <main>
+        <div id="display" class="display">
+            <input type="text" class="display-inp-1" id="display-inp-1" disabled>
+            <input type="text" class="display-inp-2" id="display-inp-2" disabled>
+        </div>
+        <div id="button-pad" class="button-pad">
+            <div class="button-row">
+                <button class="btn" onclick="insert('ac')" id="first_row">AC</button>
+                <button class="btn" onclick="insert('pm')" id="first_row">+/-</button>
+                <button class="btn" onclick="insert('per')" id="first_row">%</button>
+                <button class="btn" onclick="insert('/')" id="first_row">÷</button>
+            </div>
+            <div class="button-row">
+                <button class="btn" onclick="insert(7)">7</button>
+                <button class="btn" onclick="insert(8)">8</button>
+                <button class="btn" onclick="insert(9)">9</button>
+                <button class="btn" onclick="insert('*')">×</button>
+            </div>
+            <div class="button-row">
+                <button class="btn" onclick="insert(4)">4</button>
+                <button class="btn" onclick="insert(5)">5</button>
+                <button class="btn" onclick="insert(6)">6</button>
+                <button class="btn" onclick="insert('-')">-</button>
+            </div>
+            <div class="button-row">
+                <button class="btn" onclick="insert(1)">1</button>
+                <button class="btn" onclick="insert(2)">2</button>
+                <button class="btn" onclick="insert(3)">3</button>
+                <button class="btn" onclick="insert('+')">+</button>
+            </div>
+            <div class="button-row">
+                <button class="btn"><i class="fa-solid fa-calculator"></i></button>
+                <button class="btn" onclick="insert(0)">0</button>
+                <button class="btn" onclick="insert('.')">.</button>
+                <button class="btn" onclick="insert('=')">=</button>
+            </div>
+        </div>
+    </main>
+    <script src="script.js" lang="javascript"></script>
+    <script src="https://kit.fontawesome.com/e0e0a75eb7.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
