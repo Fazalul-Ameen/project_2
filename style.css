@@ -80,3 +80,91 @@ nav i {
     border: none;
     color: aliceblue;
 }
+
+
+/* iPhones in landscape (around 812px width) */
+@media screen and (min-width: 700px) and (max-width: 950px) {
+    .btn {
+        width: 70px;
+        height: 70px;
+        font-size: x-large;
+    }
+
+    .display-inp-1 {
+        font-size: 22px;
+        height: 45px;
+    }
+
+    .display-inp-2 {
+        font-size: 40px;
+        height: 70px;
+    }
+
+    .button-row {
+        gap: 5px;
+    }
+
+    .button-pad {
+        padding: 10px;
+    }
+}
+
+/* iPhones with larger displays (portrait mode) */
+@media screen and (min-width: 375px) and (max-width: 430px) and (orientation: portrait) {
+    .btn {
+        width: 75px;
+        height: 75px;
+        font-size: x-large;
+    }
+
+    .display-inp-1 {
+        font-size: 20px;
+        height: 45px;
+    }
+
+    .display-inp-2 {
+        font-size: 38px;
+        height: 70px;
+    }
+
+    nav i {
+        padding: 18px;
+    }
+}
+
+/* === Responsive tweaks for Android phones === */
+@media screen and (max-width: 600px) {
+    body {
+        align-items: center;
+        padding: 10px;
+    }
+
+    .display {
+        height: 180px;
+    }
+
+    .display-inp-1 {
+        font-size: 20px;
+    }
+
+    .display-inp-2 {
+        font-size: 40px;
+    }
+
+    .button-pad {
+        height: auto;
+        gap: 10px;
+    }
+
+    .button-row {
+        gap: 10px;
+    }
+
+    .btn {
+        width: 70px;
+        height: 70px;
+        font-size: 1.5rem;
+    }
+}
+
+
