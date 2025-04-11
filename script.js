@@ -1,151 +1,97 @@
-var operatorFound = 0;
-let a = 0;
-let b = 0;
-const buttons = document.getElementsByClassName("btn");
-console.log(buttons);
-const inputfield = document.getElementById("display-inp-2");
-console.log(inputfield);
-const displayfield = document.getElementById("display-inp-1");
-console.log(displayfield);
-inputfield.value = " ";
-displayfield.value = " ";
+let a = '';
+let b = '';
+let operator = '';
+let isOperatorClicked = false;
+
+const inputField = document.getElementById("display-inp-2");
+const displayField = document.getElementById("display-inp-1");
+
+// Initialize
+inputField.value = '';
+displayField.value = '';
+
+// Main insert handler
 function insert(val) {
-    console.log(typeof (val));
-    if (typeof (val) == "number") {
-        inputfield.value += val;
-    }
-    if (typeof (val) == "string") {
-        switch (val) {
-            case 'ac':
-                displayfield.value = "";
-                inputfield.value = " ";
-                operatorFound = 0;
-                a = 0;
-                b = 0;
-                break;
-            case 'pm':
-                inputfield.value = toggleSign(inputfield.value);
-                break;
-            case 'per':
-                inputfield.value = inputfield.value / 100;
-                break;
-        }
-    }
-
-    if ((typeof (val) == "string") && ((val == '/') || (val == '*') || (val == '-') || (val == '+') || (val == '='))) {
-        if (operatorFound === 1) {
-            b = String(inputfield.value);
-            console.log(b);
-        }
-
-        switch (val) {
-            case '/':
-                displayfield.value = inputfield.value;
-                if (operatorFound === 1) {
-
-                    displayfield.value = doOperation(a, b, '/');
-                    inputfield.value = "";
-
-                    operatorFound = 0;
-                }
-                if (operatorFound === 0) {
-                    a = displayfield.value;
-                    console.log(a);
-
-                    inputfield.value = "";
-                    displayfield.value += "/";
-                    operatorFound = 1;
-                }
-                break;
-
-
-            case '*':
-                displayfield.value = inputfield.value;
-                if (operatorFound === 1) {
-
-                    displayfield.value = doOperation(a, b, '*');
-                    inputfield.value = "";
-
-                    operatorFound = 0;
-                }
-                if (operatorFound === 0) {
-                    a = displayfield.value;
-                    console.log(a);
-
-                    inputfield.value = "";
-                    displayfield.value += "*";
-                    operatorFound = 1;
-                }
-                break;
-
-
-            case '-':
-                displayfield.value = inputfield.value;
-                if (operatorFound === 1) {
-
-                    displayfield.value = doOperation(a, b, '-');
-                    inputfield.value = "";
-
-                    operatorFound = 0;
-                }
-                if (operatorFound === 0) {
-                    a = displayfield.value;
-                    console.log(a);
-
-                    inputfield.value = "";
-                    displayfield.value += "-";
-                    operatorFound = 1;
-                }
-                break;
-
-
-            case '+':
-                displayfield.value = inputfield.value;
-                if (operatorFound === 1) {
-
-                    displayfield.value = doOperation(a, b, '+');
-                    inputfield.value = "";
-
-                    operatorFound = 0;
-                }
-                if (operatorFound === 0) {
-                    a = displayfield.value;
-                    console.log(a);
-
-                    inputfield.value = "";
-                    displayfield.value += "+";
-                    operatorFound = 1;
-                }
-                break;
-
-            case '=':
-                displayfield.value += inputfield.value;
-
-                inputfield.value = "";
-                inputfield.value = eval(displayfield.value);
-                console.log(inputfield.value);
-                break;
-        }
+    if (!isNaN(val) || val === '.') {
+        handleNumber(val);
+    } else {
+        handleOperator(val);
     }
 }
 
-function toggleSign(value) {
-    return -value;
+// Handle number or dot input
+function handleNumber(val) {
+    inputField.value += val;
 }
 
-function doOperation(a, b, op) {
+// Handle operators and functions
+function handleOperator(op) {
     switch (op) {
-        case '/':
-            return a / b;
+        case 'ac':
+            clearAll();
             break;
-        case '*':
-            return a * b;
+        case 'pm':
+            toggleSign();
             break;
-        case '-':
-            return a - b;
+        case 'per':
+            inputField.value = parseFloat(inputField.value) / 100;
             break;
-        case '+':
-            return a + b;
+        case '=':
+            if (a && operator && inputField.value !== '') {
+                b = inputField.value;
+                const result = operate(parseFloat(a), parseFloat(b), operator);
+                inputField.value = result;
+                displayField.value = `${a} ${operator} ${b} =`;
+                a = '';
+                b = '';
+                operator = '';
+                isOperatorClicked = false;
+            }
             break;
+        default:
+            if (inputField.value === '') return;
+            if (!isOperatorClicked) {
+                a = inputField.value;
+                operator = op;
+                displayField.value = `${a} ${operator}`;
+                inputField.value = '';
+                isOperatorClicked = true;
+            } else {
+                // If operator clicked again before "=", allow chaining
+                b = inputField.value;
+                a = operate(parseFloat(a), parseFloat(b), operator);
+                operator = op;
+                displayField.value = `${a} ${operator}`;
+                inputField.value = '';
+            }
+            break;
+    }
+}
+
+// Clear inputs
+function clearAll() {
+    a = '';
+    b = '';
+    operator = '';
+    isOperatorClicked = false;
+    inputField.value = '';
+    displayField.value = '';
+}
+
+// Toggle sign of the number
+function toggleSign() {
+    if (inputField.value === '') return;
+    let val = parseFloat(inputField.value);
+    inputField.value = -val;
+}
+
+// Perform calculation
+function operate(a, b, op) {
+    switch (op) {
+        case '+': return a + b;
+        case '-': return a - b;
+        case '*': return a * b;
+        case '/': return b === 0 ? "Error" : a / b;
+        default: return 0;
     }
 }
