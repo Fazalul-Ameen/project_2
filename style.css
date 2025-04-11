@@ -132,3 +132,39 @@ nav i {
     }
 }
 
+/* === Responsive tweaks for Android phones === */
+@media screen and (max-width: 600px) {
+    body {
+        align-items: center;
+        padding: 10px;
+    }
+
+    .display {
+        height: 180px;
+    }
+
+    .display-inp-1 {
+        font-size: 20px;
+    }
+
+    .display-inp-2 {
+        font-size: 40px;
+    }
+
+    .button-pad {
+        height: auto;
+        gap: 10px;
+    }
+
+    .button-row {
+        gap: 10px;
+    }
+
+    .btn {
+        width: 70px;
+        height: 70px;
+        font-size: 1.5rem;
+    }
+}
+
+
